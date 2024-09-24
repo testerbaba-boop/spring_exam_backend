@@ -43,10 +43,10 @@ public class LoginInterceptor implements HandlerInterceptor {
      */
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        System.out.println("进入拦截器啦！");
+        System.out.println("++++进入拦截器啦！");
         String uri = request.getRequestURI();
         System.out.println(uri);
-        System.out.println("无需拦截的接口路径：" + authIgnoreUris);
+        System.out.println("+++++无需拦截的接口路径：" + authIgnoreUris);
         String[] authIgnoreUriArr = authIgnoreUris.split(",");
         // 登录和注册接口不需要进行token拦截和校验
         for (String authIgnoreUri : authIgnoreUriArr) {
@@ -65,7 +65,7 @@ public class LoginInterceptor implements HandlerInterceptor {
             Claims claims = JwtUtils.checkJWT(token);
             if (claims == null) {
                 // 返回null说明用户篡改了token，导致校验失败
-                sendJsonMessage(response, JsonData.buildError("token无效，请重新登录"));
+                sendJsonMessage(response, JsonData.buildError("+++token无效，请重新登录"));
                 return false;
             }
             // 用户的的主键id
